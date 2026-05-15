@@ -1,0 +1,55 @@
+F:\Forhad Project\02 Work\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.dll
+F:\Forhad Project\02 Work\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.pdb
+F:\Forhad Project\02 Work\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.dll
+F:\Forhad Project\02 Work\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.pdb
+D:\01 Project\Web Form\Hospital Management\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.dll
+D:\01 Project\Web Form\Hospital Management\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.pdb
+D:\01 Project\Web Form\Hospital Management\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.dll
+D:\01 Project\Web Form\Hospital Management\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.pdb
+D:\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.dll
+D:\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.pdb
+D:\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.csprojResolveAssemblyReference.cache
+D:\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.dll
+D:\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.pdb
+D:\01 Project\02 Web Form\KoryoClinic\Running\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.dll
+D:\01 Project\02 Web Form\KoryoClinic\Running\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.pdb
+D:\01 Project\02 Web Form\KoryoClinic\Running\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.dll
+D:\01 Project\02 Web Form\KoryoClinic\Running\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.pdb
+D:\AllDocumentsRCD\Hospital Managent\Present\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.dll
+D:\AllDocumentsRCD\Hospital Managent\Present\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.pdb
+D:\AllDocumentsRCD\Hospital Managent\Present\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.csprojAssemblyReference.cache
+D:\AllDocumentsRCD\Hospital Managent\Present\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.csproj.CoreCompileInputs.cache
+D:\AllDocumentsRCD\Hospital Managent\Present\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.dll
+D:\AllDocumentsRCD\Hospital Managent\Present\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.pdb
+D:\01 Project\02 Web Form\KoryoClinic\Running\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.csprojAssemblyReference.cache
+D:\01 Project\02 Web Form\KoryoClinic\Running\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.csproj.CoreCompileInputs.cache
+G:\Ridoy Project\KoryoClinic\Running\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.dll
+G:\Ridoy Project\KoryoClinic\Running\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.pdb
+G:\Ridoy Project\KoryoClinic\Running\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.csprojResolveAssemblyReference.cache
+G:\Ridoy Project\KoryoClinic\Running\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.dll
+G:\Ridoy Project\KoryoClinic\Running\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.pdb
+E:\Hospital Management System\Hospital\HospitalManagementApp(02-02-2023)\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.dll
+E:\Hospital Management System\Hospital\HospitalManagementApp(02-02-2023)\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.pdb
+E:\Hospital Management System\Hospital\HospitalManagementApp(02-02-2023)\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.csprojResolveAssemblyReference.cache
+E:\Hospital Management System\Hospital\HospitalManagementApp(02-02-2023)\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.dll
+E:\Hospital Management System\Hospital\HospitalManagementApp(02-02-2023)\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.pdb
+G:\Ridoy Project\KoryoClinic\05-02-2023\Hospital\HospitalManagementApp(02-02-2023)\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.dll
+G:\Ridoy Project\KoryoClinic\05-02-2023\Hospital\HospitalManagementApp(02-02-2023)\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.pdb
+G:\Ridoy Project\KoryoClinic\05-02-2023\Hospital\HospitalManagementApp(02-02-2023)\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.csprojResolveAssemblyReference.cache
+G:\Ridoy Project\KoryoClinic\05-02-2023\Hospital\HospitalManagementApp(02-02-2023)\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.dll
+G:\Ridoy Project\KoryoClinic\05-02-2023\Hospital\HospitalManagementApp(02-02-2023)\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.pdb
+E:\Hospital Management System\Hospital\Hospital\HospitalManageent\HospitalManagementApp(11-02-2023)\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.dll
+E:\Hospital Management System\Hospital\Hospital\HospitalManageent\HospitalManagementApp(11-02-2023)\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.pdb
+E:\Hospital Management System\Hospital\Hospital\HospitalManageent\HospitalManagementApp(11-02-2023)\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.csprojResolveAssemblyReference.cache
+E:\Hospital Management System\Hospital\Hospital\HospitalManageent\HospitalManagementApp(11-02-2023)\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.dll
+E:\Hospital Management System\Hospital\Hospital\HospitalManageent\HospitalManagementApp(11-02-2023)\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.pdb
+G:\Ridoy Project\KoryoClinic\Running\Hospital amar hospital\HospitalManagementApp(11-02-2023)\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.dll
+G:\Ridoy Project\KoryoClinic\Running\Hospital amar hospital\HospitalManagementApp(11-02-2023)\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.pdb
+G:\Ridoy Project\KoryoClinic\Running\Hospital amar hospital\HospitalManagementApp(11-02-2023)\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.csprojResolveAssemblyReference.cache
+G:\Ridoy Project\KoryoClinic\Running\Hospital amar hospital\HospitalManagementApp(11-02-2023)\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.dll
+G:\Ridoy Project\KoryoClinic\Running\Hospital amar hospital\HospitalManagementApp(11-02-2023)\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.pdb
+F:\Hospital amar hospital\Amar Hospital\HospitalManagementApp\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.dll
+F:\Hospital amar hospital\Amar Hospital\HospitalManagementApp\HospitalManagementApp\HospitalModels.Library\bin\Release\HospitalModels.Library.pdb
+F:\Hospital amar hospital\Amar Hospital\HospitalManagementApp\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.csprojResolveAssemblyReference.cache
+F:\Hospital amar hospital\Amar Hospital\HospitalManagementApp\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.dll
+F:\Hospital amar hospital\Amar Hospital\HospitalManagementApp\HospitalManagementApp\HospitalModels.Library\obj\Release\HospitalModels.Library.pdb

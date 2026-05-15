@@ -1,0 +1,123 @@
+﻿body {
+    font-size: 13px !important;
+}
+.modalBackground
+	{
+		background-color: black;
+		filter: alpha(opacity=90);
+		opacity: 0.6;
+	}
+.displayNone {
+    display: none;
+}
+.label {
+    color: black!important;
+}
+
+.btnDefaultOverride {
+    background-color:#3b4f66 !important;
+    border-color: #499cfc !important;
+    color: white !important;
+    
+}
+
+#pageFooterWrapper
+{
+    width: 70%;
+    padding: 2px 2px 2px;
+    background-color: #c1c1c1;
+    bottom: 0px;
+    float: left;
+    position: fixed;
+    font-size: 10pt;
+    border-radius: 1px;
+    margin: 5px;
+    height: 45px;
+    margin-left: 8%;
+}
+
+.buttoncolor {
+    padding: 5px 5px;
+    font-family: Verdana,Arial, sans-serif;
+    font-weight:bold;
+    /*color: #ffffff;*/
+    color: black;
+    text-align: center;
+    display: block;
+    /*border: 1px solid #4cadfc;*/
+    border: 1px solid #5FD0BA;
+    height:30px;
+    -webkit-border-radius: 5px;
+    /*background: -webkit-gradient(linear, left top, left bottom, from(#0a8ffe), to(#2b5cc6));*/
+    background-color: #1ABC9C; 
+}
+.buttoncolor:hover {
+    border: 1px solid #666666;
+    background: skyblue  repeat-x;
+    color: black;
+}
+
+.borderRignt {
+    border-right: 3px solid black !important;
+}
+
+.margenBottom {
+    margin-bottom: 20px !important;
+}
+
+.backgrountImage {
+    background-image: url('../image/templatemo_body.jpg');
+    height: 594px;
+    width: 100%;
+}
+
+
+.textalignleft {
+    text-align: left !important;
+}
+
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    padding: 3px !important;
+}
+
+hr {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+.input-sm {
+    height: 25px !important;
+}
+
+.inpu-sm .text-right {
+    text-align: right !important;
+}
+
+.form-group {
+    margin-bottom: 5px !important;
+}
+
+.form-horizontal .control-label {
+    padding-top: 3px !important;
+}
+
+.table {
+    margin-bottom: 5px !important;
+}
+
+.float-right {
+    float: right !important;
+}
+
+.panel {
+    margin-bottom: 10px !important;
+}
+
+.logoImage {
+ background-image: url("image\logo.png");
+    height: 30px;
+    width: 30px;
+}
