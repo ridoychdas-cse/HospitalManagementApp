@@ -1,0 +1,1740 @@
+﻿
+GO
+/****** Object:  Table [dbo].[Beds]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Beds]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Beds](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](50) NULL,
+	[WardId] [int] NULL,
+	[PriceDaily] [decimal](18, 0) NULL,
+	[Status] [bit] NULL,
+ CONSTRAINT [PK_Beds] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[BloodGroup]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[BloodGroup]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[BloodGroup](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](4) NULL,
+ CONSTRAINT [PK_BloodGroup] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[Cabins]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Cabins]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Cabins](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](50) NULL,
+	[RoomTypeId] [int] NULL,
+	[FloorId] [int] NULL,
+	[PriceDaily] [decimal](18, 0) NULL,
+	[Status] [bit] NULL,
+ CONSTRAINT [PK_Cabins] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[Designations]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Designations]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Designations](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+ CONSTRAINT [PK_Designations] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[Diagnosis]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Diagnosis]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Diagnosis](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+	[DiagnosisTypeId] [int] NULL,
+	[Description] [varchar](max) NULL,
+	[RegularFee] [decimal](18, 0) NULL,
+	[Discount] [decimal](18, 0) NULL,
+	[TotalFee] [decimal](18, 0) NULL,
+	[NormalValue] [nvarchar](50) NULL,
+	[UomId] [int] NULL,
+ CONSTRAINT [PK_Diagnosis] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[DiagnosisBillMst]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[DiagnosisBillMst]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[DiagnosisBillMst](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[PatientId] [int] NULL,
+	[PatientType] [varchar](20) NULL,
+	[BillNo] [varchar](50) NULL,
+	[SpecialDiscount] [decimal](18, 0) NULL,
+	[Vat] [decimal](18, 0) NULL,
+	[TotalPayableAmount] [decimal](18, 0) NULL,
+	[EntryDate] [date] NULL,
+ CONSTRAINT [PK_DiagnosisBillMst] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+/****** Object:  Table [dbo].[DiagnosisBillDtl]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[DiagnosisBillDtl]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[DiagnosisBillDtl](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[DiagnosisBillMstId] [int] NULL,
+	[DiagnosisTypeId] [int] NULL,
+	[DiagnosisId] [int] NULL,
+	[Price] [decimal](18, 0) NULL,
+	[Discount] [decimal](18, 0) NULL,
+	[PayableAmount] [decimal](18, 0) NULL,
+	[DeliveryDate] [date] NULL,
+	[ReferenceId] [int] NULL,
+	[ResultValue] [nvarchar](150) NULL,
+ CONSTRAINT [PK_DiagnosisBillDtl] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[DiagnosisTypes]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[DiagnosisTypes]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[DiagnosisTypes](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+	[ShortName] [varchar](50) NULL,
+	[Details] [varchar](max) NULL,
+ CONSTRAINT [PK_DiagnosisType] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[DISTRICT_CODE]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[DISTRICT_CODE]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[DISTRICT_CODE](
+	[DISTRICT_CODE] [varchar](2) NOT NULL,
+	[DISTRICT_NAME] [varchar](50) NOT NULL,
+	[DIVISION_CODE] [varchar](2) NULL
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[DIVISION_CODE]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[DIVISION_CODE]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[DIVISION_CODE](
+	[DIVISION_CODE] [varchar](2) NOT NULL,
+	[DIVISION_NAME] [varchar](50) NOT NULL
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[Doctors]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Doctors]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Doctors](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+	[PhoneNo] [varchar](15) NULL,
+	[DepartmentId] [int] NULL,
+	[DesignationId] [int] NULL,
+	[Specialty] [varchar](100) NULL,
+	[ProfileBrief] [varchar](max) NULL,
+	[Designation] [nvarchar](150) NULL,
+ CONSTRAINT [PK_Doctors] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[Floors]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Floors]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Floors](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](10) NULL,
+ CONSTRAINT [PK_Floor] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+/****** Object:  Table [dbo].[HospitalDepartments]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[HospitalDepartments]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[HospitalDepartments](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+	[ShortName] [varchar](50) NULL,
+	[Details] [varchar](max) NULL,
+ CONSTRAINT [PK_HospitalDepartments] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[IndoorPatients]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[IndoorPatients]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[IndoorPatients](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[PatientId] [varchar](50) NULL,
+	[Name] [varchar](100) NULL,
+	[Gender] [varchar](8) NULL,
+	[Age] [varchar](4) NULL,
+	[BloodId] [int] NULL,
+	[PhoneNo] [varchar](15) NULL,
+	[Address] [varchar](max) NULL,
+	[EntryDate] [datetime] NULL,
+	[Remark] [varchar](max) NULL,
+	[DivisionId] [int] NULL,
+	[DistrictId] [int] NULL,
+	[ThanaId] [int] NULL,
+	[GName] [varchar](100) NULL,
+	[GPhoneNo] [varchar](15) NULL,
+	[GGender] [varchar](8) NULL,
+	[GAge] [varchar](4) NULL,
+	[Relation] [varchar](10) NULL,
+	[GAddress] [varchar](max) NULL,
+	[ConsultantId] [int] NULL,
+	[ReferenceById] [int] NULL,
+	[StatusId] [int] NULL,
+	[Image] [varbinary](max) NULL,
+ CONSTRAINT [PK_IndoorPatients] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[MoneyReceiveDtl]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[MoneyReceiveDtl]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[MoneyReceiveDtl](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[MoneyReceiveMstId] [int] NULL,
+	[PayMethode] [varchar](50) NULL,
+	[BankName] [varchar](50) NULL,
+	[ChequeNo] [varchar](50) NULL,
+	[ChequeDate] [varchar](50) NULL,
+	[EntryDate] [datetime] NULL,
+	[MoneyReceiveBy] [varchar](100) NULL,
+ CONSTRAINT [PK_MoneyReceiveDtl] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[MoneyReceiveMst]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[MoneyReceiveMst]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[MoneyReceiveMst](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[PatientId] [int] NULL,
+	[PatientType] [varchar](50) NULL,
+	[PaymentType] [varchar](50) NULL,
+	[DiagnosisBillMstId] [int] NULL,
+	[PayAmount] [decimal](18, 0) NULL,
+	[AdvanceAmount] [decimal](18, 0) NULL,
+	[Particulars] [varchar](max) NULL,
+	[SpecialDiscount] [decimal](18, 0) NULL,
+	[IPVat] [decimal](18, 0) NULL,
+ CONSTRAINT [PK_MoneyReceiveMst] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[Organization]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Organization]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Organization](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](200) NULL,
+	[ShortName] [varchar](20) NULL,
+	[Image] [varbinary](max) NULL,
+	[PhoneNo] [varchar](25) NULL,
+	[Email] [varchar](200) NULL,
+	[Address] [varchar](max) NULL,
+	[OrganizationSpeech] [varchar](200) NULL,
+	[Description] [varchar](max) NULL,
+	[Status] [bit] NULL,
+ CONSTRAINT [PK_Organization] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[OtherBills]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[OtherBills]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[OtherBills](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[PatientId] [int] NULL,
+	[PatientType] [varchar](5) NULL,
+	[OtherBillId] [int] NULL,
+	[Price] [decimal](18, 0) NULL,
+	[EntryDate] [date] NULL,
+ CONSTRAINT [PK_OtherBills] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[OtherBillType]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[OtherBillType]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[OtherBillType](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](255) NULL,
+	[Status] [bit] NULL,
+ CONSTRAINT [PK_OtherBill] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[OutdoorPatients]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[OutdoorPatients]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[OutdoorPatients](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[PatientId] [varchar](100) NULL,
+	[Name] [varchar](100) NULL,
+	[PhoneNo] [varchar](15) NULL,
+	[Gender] [varchar](8) NULL,
+	[Age] [varchar](3) NULL,
+	[EntryDate] [date] NULL,
+	[DepartmentId] [int] NULL,
+	[DoctorId] [int] NULL,
+	[ReferenceById] [int] NULL,
+	[DivisionId] [int] NULL,
+	[DistrictId] [int] NULL,
+	[ThanaId] [int] NULL,
+ CONSTRAINT [PK_OutdoorPatient] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[PackageMst]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[PackageMst]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[PackageMst](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](200) NULL,
+	[ShortName] [varchar](50) NULL,
+	[PackageTypeId] [int] NULL,
+	[Description] [varchar](max) NULL,
+	[RegularFee] [decimal](18, 0) NULL,
+	[Discount] [decimal](18, 0) NULL,
+	[TotalFee] [decimal](18, 0) NULL,
+ CONSTRAINT [PK_PackageMst] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+/****** Object:  Table [dbo].[PackageDtl]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[PackageDtl]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[PackageDtl](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[PackageMstId] [int] NULL,
+	[ServiceType] [varchar](100) NULL,
+	[ServiceId] [int] NULL,
+ CONSTRAINT [PK_PackageDtl] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[PackageTypes]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[PackageTypes]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[PackageTypes](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](200) NULL,
+	[ShortName] [varchar](50) NULL,
+	[Description] [varchar](max) NULL,
+ CONSTRAINT [PK_PackageTypes] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[PatientBedInfo]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[PatientBedInfo]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[PatientBedInfo](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[PatientId] [int] NULL,
+	[RoomType] [varchar](8) NULL,
+	[WardId] [int] NULL,
+	[BedId] [int] NULL,
+	[BedPrice] [decimal](18, 0) NULL,
+	[CabinType] [int] NULL,
+	[CabinId] [int] NULL,
+	[CabinPrice] [decimal](18, 0) NULL,
+	[AdmitDate] [datetime] NULL,
+	[ReleseDate] [datetime] NULL,
+ CONSTRAINT [PK_PatientBedInfo] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[ReferenceBy]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[ReferenceBy]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[ReferenceBy](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+	[Status] [bit] NULL,
+ CONSTRAINT [PK_ReferenceBy] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[RoomTypes]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[RoomTypes]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[RoomTypes](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](8) NULL,
+ CONSTRAINT [PK_RoomType] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[Status]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Status]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Status](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](8) NULL,
+ CONSTRAINT [PK_Status] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[SurgeryBillMst]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[SurgeryBillMst]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[SurgeryBillMst](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[PatientId] [int] NULL,
+	[PatientType] [varchar](20) NULL,
+	[BillNo] [varchar](50) NULL,
+	[SpecialDiscount] [decimal](18, 0) NULL,
+	[Vat] [decimal](18, 0) NULL,
+	[TotalPayableAmount] [decimal](18, 0) NULL,
+	[EntryDate] [date] NULL,
+ CONSTRAINT [PK_SurgeryBillMst] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+/****** Object:  Table [dbo].[SurgeryBillDtl]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[SurgeryBillDtl]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[SurgeryBillDtl](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[SurgeryBillMstId] [int] NULL,
+	[SurgeryTypeId] [int] NULL,
+	[SurgeryId] [int] NULL,
+	[Price] [decimal](18, 0) NULL,
+	[Discount] [decimal](18, 0) NULL,
+	[PayableAmount] [decimal](18, 0) NULL,
+	[DeliveryDate] [date] NULL,
+	[ReferenceId] [int] NULL,
+ CONSTRAINT [PK_SurgeryBillDtl] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[SurgeryTypes]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[SurgeryTypes]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[SurgeryTypes](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+	[ShortName] [varchar](10) NULL,
+	[Description] [varchar](max) NULL,
+ CONSTRAINT [PK_SurgeryTypes] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[Surgerys]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Surgerys]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Surgerys](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+	[ShortName] [varchar](10) NULL,
+	[SurgeryTypeId] [int] NULL,
+	[RegularFee] [decimal](18, 0) NULL,
+	[Discount] [decimal](18, 0) NULL,
+	[TotalFee] [decimal](18, 0) NULL,
+	[Description] [varchar](max) NULL,
+ CONSTRAINT [PK_Surgerys] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+
+
+
+/****** Object:  Table [dbo].[THANA_CODE]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[THANA_CODE]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[THANA_CODE](
+	[THANA_CODE] [varchar](4) NOT NULL,
+	[THANA_NAME] [varchar](50) NOT NULL,
+	[DISTRICT_CODE] [varchar](2) NULL
+) ON [PRIMARY]
+END
+GO
+
+/****** Object:  Table [dbo].[UOM]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[UOM]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[UOM](
+	[ID] [smallint] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](10) NULL,
+	[Active] [bit] NOT NULL,
+	[CreatedBy] [smallint] NULL,
+	[CreatedDate] [datetime] NULL,
+	[ModifiedBy] [smallint] NULL,
+	[ModifiedDate] [datetime] NULL,
+ CONSTRAINT [PK_UOM] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[UserRoleDetails]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[UserRoleDetails]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[UserRoleDetails](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[UserRoleId] [int] NULL,
+	[PageNameId] [int] NULL,
+	[PageCreate] [bit] NULL,
+	[PageRead] [bit] NULL,
+	[PageUpdate] [bit] NULL,
+	[PageDelete] [bit] NULL,
+ CONSTRAINT [PK_UserRoleDetails] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[UserRoles]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[UserRoles]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[UserRoles](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](50) NULL,
+	[Description] [varchar](max) NULL,
+	[Status] [bit] NULL,
+ CONSTRAINT [PK_Roles] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[Users]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Users]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Users](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[FirstName] [varchar](100) NULL,
+	[LastName] [varchar](50) NULL,
+	[PhoneNo] [varchar](15) NULL,
+	[UserName] [varchar](50) NULL,
+	[Password] [varchar](50) NULL,
+	[UserRoleId] [int] NULL,
+	[Status] [bit] NULL,
+ CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+
+/****** Object:  Table [dbo].[Wards]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Wards]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Wards](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+	[DepartmentId] [int] NULL,
+	[FloorId] [int] NULL,
+	[WardFor] [varchar](50) NULL,
+	[RoomTypeId] [int] NULL,
+	[Details] [varchar](max) NULL,
+ CONSTRAINT [PK_Wards] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[WebPages]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[WebPages]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[WebPages](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+ CONSTRAINT [PK_WebPages] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+GO
+/****** Object:  Table [dbo].[Beds]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Beds]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Beds](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](50) NULL,
+	[WardId] [int] NULL,
+	[PriceDaily] [decimal](18, 0) NULL,
+	[Status] [bit] NULL,
+ CONSTRAINT [PK_Beds] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[BloodGroup]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[BloodGroup]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[BloodGroup](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](4) NULL,
+ CONSTRAINT [PK_BloodGroup] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[Cabins]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Cabins]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Cabins](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](50) NULL,
+	[RoomTypeId] [int] NULL,
+	[FloorId] [int] NULL,
+	[PriceDaily] [decimal](18, 0) NULL,
+	[Status] [bit] NULL,
+ CONSTRAINT [PK_Cabins] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[Designations]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Designations]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Designations](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+ CONSTRAINT [PK_Designations] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[Diagnosis]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Diagnosis]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Diagnosis](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+	[DiagnosisTypeId] [int] NULL,
+	[Description] [varchar](max) NULL,
+	[RegularFee] [decimal](18, 0) NULL,
+	[Discount] [decimal](18, 0) NULL,
+	[TotalFee] [decimal](18, 0) NULL,
+	[NormalValue] [nvarchar](50) NULL,
+	[UomId] [int] NULL,
+ CONSTRAINT [PK_Diagnosis] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[DiagnosisBillMst]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[DiagnosisBillMst]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[DiagnosisBillMst](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[PatientId] [int] NULL,
+	[PatientType] [varchar](20) NULL,
+	[BillNo] [varchar](50) NULL,
+	[SpecialDiscount] [decimal](18, 0) NULL,
+	[Vat] [decimal](18, 0) NULL,
+	[TotalPayableAmount] [decimal](18, 0) NULL,
+	[EntryDate] [date] NULL,
+ CONSTRAINT [PK_DiagnosisBillMst] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+/****** Object:  Table [dbo].[DiagnosisBillDtl]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[DiagnosisBillDtl]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[DiagnosisBillDtl](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[DiagnosisBillMstId] [int] NULL,
+	[DiagnosisTypeId] [int] NULL,
+	[DiagnosisId] [int] NULL,
+	[Price] [decimal](18, 0) NULL,
+	[Discount] [decimal](18, 0) NULL,
+	[PayableAmount] [decimal](18, 0) NULL,
+	[DeliveryDate] [date] NULL,
+	[ReferenceId] [int] NULL,
+	[ResultValue] [nvarchar](150) NULL,
+ CONSTRAINT [PK_DiagnosisBillDtl] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[DiagnosisTypes]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[DiagnosisTypes]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[DiagnosisTypes](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+	[ShortName] [varchar](50) NULL,
+	[Details] [varchar](max) NULL,
+ CONSTRAINT [PK_DiagnosisType] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[DISTRICT_CODE]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[DISTRICT_CODE]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[DISTRICT_CODE](
+	[DISTRICT_CODE] [varchar](2) NOT NULL,
+	[DISTRICT_NAME] [varchar](50) NOT NULL,
+	[DIVISION_CODE] [varchar](2) NULL
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[DIVISION_CODE]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[DIVISION_CODE]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[DIVISION_CODE](
+	[DIVISION_CODE] [varchar](2) NOT NULL,
+	[DIVISION_NAME] [varchar](50) NOT NULL
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[Doctors]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Doctors]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Doctors](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+	[PhoneNo] [varchar](15) NULL,
+	[DepartmentId] [int] NULL,
+	[DesignationId] [int] NULL,
+	[Specialty] [varchar](100) NULL,
+	[ProfileBrief] [varchar](max) NULL,
+	[Designation] [nvarchar](150) NULL,
+ CONSTRAINT [PK_Doctors] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[Floors]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Floors]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Floors](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](10) NULL,
+ CONSTRAINT [PK_Floor] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+/****** Object:  Table [dbo].[HospitalDepartments]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[HospitalDepartments]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[HospitalDepartments](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+	[ShortName] [varchar](50) NULL,
+	[Details] [varchar](max) NULL,
+ CONSTRAINT [PK_HospitalDepartments] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[IndoorPatients]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[IndoorPatients]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[IndoorPatients](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[PatientId] [varchar](50) NULL,
+	[Name] [varchar](100) NULL,
+	[Gender] [varchar](8) NULL,
+	[Age] [varchar](4) NULL,
+	[BloodId] [int] NULL,
+	[PhoneNo] [varchar](15) NULL,
+	[Address] [varchar](max) NULL,
+	[EntryDate] [datetime] NULL,
+	[Remark] [varchar](max) NULL,
+	[DivisionId] [int] NULL,
+	[DistrictId] [int] NULL,
+	[ThanaId] [int] NULL,
+	[GName] [varchar](100) NULL,
+	[GPhoneNo] [varchar](15) NULL,
+	[GGender] [varchar](8) NULL,
+	[GAge] [varchar](4) NULL,
+	[Relation] [varchar](10) NULL,
+	[GAddress] [varchar](max) NULL,
+	[ConsultantId] [int] NULL,
+	[ReferenceById] [int] NULL,
+	[StatusId] [int] NULL,
+	[Image] [varbinary](max) NULL,
+ CONSTRAINT [PK_IndoorPatients] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[MoneyReceiveDtl]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[MoneyReceiveDtl]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[MoneyReceiveDtl](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[MoneyReceiveMstId] [int] NULL,
+	[PayMethode] [varchar](50) NULL,
+	[BankName] [varchar](50) NULL,
+	[ChequeNo] [varchar](50) NULL,
+	[ChequeDate] [varchar](50) NULL,
+	[EntryDate] [datetime] NULL,
+	[MoneyReceiveBy] [varchar](100) NULL,
+ CONSTRAINT [PK_MoneyReceiveDtl] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[MoneyReceiveMst]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[MoneyReceiveMst]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[MoneyReceiveMst](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[PatientId] [int] NULL,
+	[PatientType] [varchar](50) NULL,
+	[PaymentType] [varchar](50) NULL,
+	[DiagnosisBillMstId] [int] NULL,
+	[PayAmount] [decimal](18, 0) NULL,
+	[AdvanceAmount] [decimal](18, 0) NULL,
+	[Particulars] [varchar](max) NULL,
+	[SpecialDiscount] [decimal](18, 0) NULL,
+	[IPVat] [decimal](18, 0) NULL,
+ CONSTRAINT [PK_MoneyReceiveMst] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[Organization]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Organization]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Organization](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](200) NULL,
+	[ShortName] [varchar](20) NULL,
+	[Image] [varbinary](max) NULL,
+	[PhoneNo] [varchar](25) NULL,
+	[Email] [varchar](200) NULL,
+	[Address] [varchar](max) NULL,
+	[OrganizationSpeech] [varchar](200) NULL,
+	[Description] [varchar](max) NULL,
+	[Status] [bit] NULL,
+ CONSTRAINT [PK_Organization] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[OtherBills]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[OtherBills]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[OtherBills](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[PatientId] [int] NULL,
+	[PatientType] [varchar](5) NULL,
+	[OtherBillId] [int] NULL,
+	[Price] [decimal](18, 0) NULL,
+	[EntryDate] [date] NULL,
+ CONSTRAINT [PK_OtherBills] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[OtherBillType]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[OtherBillType]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[OtherBillType](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](255) NULL,
+	[Status] [bit] NULL,
+ CONSTRAINT [PK_OtherBill] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[OutdoorPatients]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[OutdoorPatients]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[OutdoorPatients](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[PatientId] [varchar](100) NULL,
+	[Name] [varchar](100) NULL,
+	[PhoneNo] [varchar](15) NULL,
+	[Gender] [varchar](8) NULL,
+	[Age] [varchar](3) NULL,
+	[EntryDate] [date] NULL,
+	[DepartmentId] [int] NULL,
+	[DoctorId] [int] NULL,
+	[ReferenceById] [int] NULL,
+	[DivisionId] [int] NULL,
+	[DistrictId] [int] NULL,
+	[ThanaId] [int] NULL,
+ CONSTRAINT [PK_OutdoorPatient] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[PackageMst]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[PackageMst]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[PackageMst](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](200) NULL,
+	[ShortName] [varchar](50) NULL,
+	[PackageTypeId] [int] NULL,
+	[Description] [varchar](max) NULL,
+	[RegularFee] [decimal](18, 0) NULL,
+	[Discount] [decimal](18, 0) NULL,
+	[TotalFee] [decimal](18, 0) NULL,
+ CONSTRAINT [PK_PackageMst] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+/****** Object:  Table [dbo].[PackageDtl]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[PackageDtl]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[PackageDtl](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[PackageMstId] [int] NULL,
+	[ServiceType] [varchar](100) NULL,
+	[ServiceId] [int] NULL,
+ CONSTRAINT [PK_PackageDtl] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[PackageTypes]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[PackageTypes]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[PackageTypes](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](200) NULL,
+	[ShortName] [varchar](50) NULL,
+	[Description] [varchar](max) NULL,
+ CONSTRAINT [PK_PackageTypes] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[PatientBedInfo]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[PatientBedInfo]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[PatientBedInfo](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[PatientId] [int] NULL,
+	[RoomType] [varchar](8) NULL,
+	[WardId] [int] NULL,
+	[BedId] [int] NULL,
+	[BedPrice] [decimal](18, 0) NULL,
+	[CabinType] [int] NULL,
+	[CabinId] [int] NULL,
+	[CabinPrice] [decimal](18, 0) NULL,
+	[AdmitDate] [datetime] NULL,
+	[ReleseDate] [datetime] NULL,
+ CONSTRAINT [PK_PatientBedInfo] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[ReferenceBy]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[ReferenceBy]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[ReferenceBy](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+	[Status] [bit] NULL,
+ CONSTRAINT [PK_ReferenceBy] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[RoomTypes]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[RoomTypes]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[RoomTypes](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](8) NULL,
+ CONSTRAINT [PK_RoomType] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[Status]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Status]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Status](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](8) NULL,
+ CONSTRAINT [PK_Status] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[SurgeryBillMst]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[SurgeryBillMst]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[SurgeryBillMst](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[PatientId] [int] NULL,
+	[PatientType] [varchar](20) NULL,
+	[BillNo] [varchar](50) NULL,
+	[SpecialDiscount] [decimal](18, 0) NULL,
+	[Vat] [decimal](18, 0) NULL,
+	[TotalPayableAmount] [decimal](18, 0) NULL,
+	[EntryDate] [date] NULL,
+ CONSTRAINT [PK_SurgeryBillMst] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+/****** Object:  Table [dbo].[SurgeryBillDtl]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[SurgeryBillDtl]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[SurgeryBillDtl](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[SurgeryBillMstId] [int] NULL,
+	[SurgeryTypeId] [int] NULL,
+	[SurgeryId] [int] NULL,
+	[Price] [decimal](18, 0) NULL,
+	[Discount] [decimal](18, 0) NULL,
+	[PayableAmount] [decimal](18, 0) NULL,
+	[DeliveryDate] [date] NULL,
+	[ReferenceId] [int] NULL,
+ CONSTRAINT [PK_SurgeryBillDtl] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[SurgeryTypes]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[SurgeryTypes]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[SurgeryTypes](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+	[ShortName] [varchar](10) NULL,
+	[Description] [varchar](max) NULL,
+ CONSTRAINT [PK_SurgeryTypes] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[Surgerys]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Surgerys]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Surgerys](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+	[ShortName] [varchar](10) NULL,
+	[SurgeryTypeId] [int] NULL,
+	[RegularFee] [decimal](18, 0) NULL,
+	[Discount] [decimal](18, 0) NULL,
+	[TotalFee] [decimal](18, 0) NULL,
+	[Description] [varchar](max) NULL,
+ CONSTRAINT [PK_Surgerys] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+
+
+
+/****** Object:  Table [dbo].[THANA_CODE]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[THANA_CODE]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[THANA_CODE](
+	[THANA_CODE] [varchar](4) NOT NULL,
+	[THANA_NAME] [varchar](50) NOT NULL,
+	[DISTRICT_CODE] [varchar](2) NULL
+) ON [PRIMARY]
+END
+GO
+
+/****** Object:  Table [dbo].[UOM]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[UOM]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[UOM](
+	[ID] [smallint] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](10) NULL,
+	[Active] [bit] NOT NULL,
+	[CreatedBy] [smallint] NULL,
+	[CreatedDate] [datetime] NULL,
+	[ModifiedBy] [smallint] NULL,
+	[ModifiedDate] [datetime] NULL,
+ CONSTRAINT [PK_UOM] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[UserRoleDetails]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[UserRoleDetails]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[UserRoleDetails](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[UserRoleId] [int] NULL,
+	[PageNameId] [int] NULL,
+	[PageCreate] [bit] NULL,
+	[PageRead] [bit] NULL,
+	[PageUpdate] [bit] NULL,
+	[PageDelete] [bit] NULL,
+ CONSTRAINT [PK_UserRoleDetails] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[UserRoles]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[UserRoles]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[UserRoles](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](50) NULL,
+	[Description] [varchar](max) NULL,
+	[Status] [bit] NULL,
+ CONSTRAINT [PK_Roles] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+
+
+/****** Object:  Table [dbo].[Users]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Users]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Users](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[FirstName] [varchar](100) NULL,
+	[LastName] [varchar](50) NULL,
+	[PhoneNo] [varchar](15) NULL,
+	[UserName] [varchar](50) NULL,
+	[Password] [varchar](50) NULL,
+	[UserRoleId] [int] NULL,
+	[Status] [bit] NULL,
+ CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+
+
+/****** Object:  Table [dbo].[Wards]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[Wards]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[Wards](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+	[DepartmentId] [int] NULL,
+	[FloorId] [int] NULL,
+	[WardFor] [varchar](50) NULL,
+	[RoomTypeId] [int] NULL,
+	[Details] [varchar](max) NULL,
+ CONSTRAINT [PK_Wards] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+END
+GO
+/****** Object:  Table [dbo].[WebPages]    Script Date: 5/22/2026 4:29:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS(SELECT * FROM SYS.OBJECTS WHERE OBJECT_ID=OBJECT_ID(N'[dbo].[WebPages]') AND TYPE IN(N'U'))
+BEGIN
+CREATE TABLE [dbo].[WebPages](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+ CONSTRAINT [PK_WebPages] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO

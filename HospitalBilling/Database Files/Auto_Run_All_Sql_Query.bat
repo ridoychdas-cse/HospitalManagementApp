@@ -1,0 +1,1 @@
+for %%G in (*.sql) do sqlcmd /S DESKTOP-SV3HLMJ\SQLEXPRESS /d HospitalBillingDb -i "%%G"

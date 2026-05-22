@@ -94,6 +94,16 @@
     <Content Include="Content\Site.css" />
     <Content Include="css\bootstrap-theme.css.map" />
     <Content Include="css\bootstrap.css.map" />
+    <Content Include="Database Files\Step_01_Create_Schema.sql" />
+    <Content Include="Database Files\Step_02_Create_Table.sql" />
+    <Content Include="Database Files\Step_03_Alter_Table.sql" />
+    <Content Include="Database Files\Step_04_Delete_Procedure_Function_View.sql" />
+    <Content Include="Database Files\Step_05_Create_User_Define_Function.sql" />
+    <Content Include="Database Files\Step_06_Create_View_Table.sql" />
+    <Content Include="Database Files\Step_07_Insert_Default_Records.sql" />
+    <Content Include="Database Files\Step_08_Create_Procedure.sql" />
+    <Content Include="Database Files\Step_09_Index.sql" />
+    <Content Include="Database Files\Step_10_ColumnDescription.sql" />
     <Content Include="Default.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
@@ -133,6 +143,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Bundle.config" />
+    <Content Include="Database Files\Auto_Run_All_Sql_Query.bat" />
     <None Include="Properties\PublishProfiles\HospitalPublish.pubxml" />
     <Content Include="Report\Data Set\DataSet1.xsc">
       <DependentUpon>DataSet1.xsd</DependentUpon>
