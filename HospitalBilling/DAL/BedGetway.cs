@@ -19,7 +19,6 @@ namespace HospitalBilling.DAL
         internal int Update(Bed aBed)
         {
             return DataManager.ExecuteNonQuerySP("[dbo].[Sp_UpdateBedInfo]", LoadParametersInputData(aBed, ActionType.Update), _connectionString);
-
         }
         internal int Delete(Bed aBed)
         {
@@ -40,7 +39,7 @@ namespace HospitalBilling.DAL
                 parameters.Add(new SqlParameter("@strName", aBed.Name));
                 parameters.Add(new SqlParameter("@intWardId", aBed.WardId));
                 parameters.Add(new SqlParameter("@dcmlPriceDaily", aBed.PriceDaily));
-                parameters.Add(new SqlParameter("@strStatus", aBed.Status));
+                parameters.Add(new SqlParameter("@blnStatus", aBed.Status));
             }
 
             return parameters.ToArray();

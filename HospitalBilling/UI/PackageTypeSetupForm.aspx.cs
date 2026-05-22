@@ -129,14 +129,14 @@ namespace HospitalBilling.UI
             }
             else
             {
-                int id = Convert.ToInt32(idHiddenField.Value);
-                var aPackageType = new PackageType();
-                aPackageType.Id = id;
+
+                PackageType aPackageType = new PackageType();
+                aPackageType.Id = Convert.ToInt32(idHiddenField.Value);
                 aPackageType.Name = editNameTextBox.Text;
                 aPackageType.ShortName = editShortNameTextBox.Text;
                 aPackageType.Description = editdescriptionTextBox.Text;
 
-                int rowAffected = _packageTypeManager.Update(id, aPackageType);
+                int rowAffected = _packageTypeManager.Update(aPackageType);
                 if (rowAffected > 0)
                 {
                     EditPopupRefress();
@@ -182,9 +182,10 @@ namespace HospitalBilling.UI
         // popup button
         protected void delete1LinkButton_Click(object sender, EventArgs e)
         {
-            int id = Convert.ToInt32(idHiddenField.Value);
 
-            _packageTypeManager.Delete(id);
+            PackageType aPackageType = new PackageType();
+            aPackageType.Id = Convert.ToInt32(idHiddenField.Value);
+            _packageTypeManager.Delete(aPackageType);
             DeleteRefress();
             deleteModalPopupExtender.Hide();
         }

@@ -301,9 +301,9 @@ namespace HospitalBilling.UI
         // popup button
         protected void delete1LinkButton_Click(object sender, EventArgs e)
         {
-            int id = Convert.ToInt32(idHiddenField.Value);
-
-            _surgeryManager.Delete(id);
+            Surgery aSurgery = new Surgery();
+            aSurgery.Id= Convert.ToInt32(idHiddenField.Value);
+            _surgeryManager.Delete(aSurgery);
             DeleteRefress();
             deleteModalPopupExtender.Hide();
         }

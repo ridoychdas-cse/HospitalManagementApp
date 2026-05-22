@@ -130,9 +130,11 @@ namespace HospitalBilling.UI
 
         protected void delete1LinkButton_Click(object sender, EventArgs e)
         {
-            int id = Convert.ToInt32(idHiddenField.Value);
+           
 
-            _diagnosisTypeManager.Delete(id);
+            DiagnosisType aDiagnosisType = new DiagnosisType();
+            aDiagnosisType.Id= Convert.ToInt32(idHiddenField.Value);
+            _diagnosisTypeManager.Delete(aDiagnosisType);
             DeleteRefress();
             deleteModalPopupExtender.Hide();
         }

@@ -1,7 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using HospitalBilling.BLL;
+﻿using HospitalBilling.BLL;
+using HospitalBilling.Enum;
 using HospitalBilling.Models;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace HospitalBilling.DAL
 {
@@ -9,32 +11,47 @@ namespace HospitalBilling.DAL
     {
         private readonly string _connectionString = DataManager.ConnectionString();
 
+        #region Surgery Info Save,Update,Delete
         internal int Save(Surgery aSurgery)
         {
-            string query = "INSERT INTO Surgerys VALUES('" + aSurgery.Name + "', '" + aSurgery.ShortName + "', '" +
-                           aSurgery.SurgeryTypeId + "', '" + aSurgery.RegularFee + "', '" + aSurgery.Discount + "', '" +
-                           aSurgery.TotalFee + "', '" + aSurgery.Description + "')";
-            int rowAffected = DataManager.ExecuteNonQuery(query, _connectionString);
-            return rowAffected;
-        }
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_SaveSurgeryInfo]", LoadParametersInputData(aSurgery, ActionType.Save), _connectionString);
 
+        }
         internal int Update(Surgery aSurgery)
         {
-            string query = "UPDATE Surgerys SET Name='" + aSurgery.Name + "', ShortName='" + aSurgery.ShortName +
-                           "', SurgeryTypeId='" + aSurgery.SurgeryTypeId + "', RegularFee='" + aSurgery.RegularFee +
-                           "', Discount='" + aSurgery.Discount + "', TotalFee='" + aSurgery.TotalFee +
-                           "', Description='" + aSurgery.Description + "' WHERE Id='" + aSurgery.Id + "'";
-            int rowAffected = DataManager.ExecuteNonQuery(query, _connectionString);
-            return rowAffected;
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_UpdateSurgeryInfo]", LoadParametersInputData(aSurgery, ActionType.Update), _connectionString);
         }
-
-        internal int Delete(int id)
+        internal int Delete(Surgery aSurgery)
         {
-            string query = "DELETE FROM Surgerys WHERE Id='" + id + "'";
-            int rowAffected = DataManager.ExecuteNonQuery(query, _connectionString);
-            return rowAffected;
-        }
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_DeleteSurgeryInfoById]", LoadParametersInputData(aSurgery, ActionType.Delete), _connectionString);
 
+        }
+        internal SqlParameter[] LoadParametersInputData(Surgery aSurgery, ActionType actionType)
+        {
+            List<SqlParameter> parameters = new List<SqlParameter>();
+
+            if (actionType == ActionType.Update || actionType == ActionType.Delete)
+            {
+                parameters.Add(new SqlParameter("@intId", aSurgery.Id));
+            }
+
+            if (actionType == ActionType.Save || actionType == ActionType.Update)
+            {
+                parameters.Add(new SqlParameter("@strName", aSurgery.Name));
+                parameters.Add(new SqlParameter("@strShortName", aSurgery.ShortName));
+                parameters.Add(new SqlParameter("@intSurgeryTypeId", aSurgery.SurgeryTypeId));
+                parameters.Add(new SqlParameter("@dcmlRegularFee", aSurgery.RegularFee));
+                parameters.Add(new SqlParameter("@dcmlDiscount", aSurgery.Discount));
+                parameters.Add(new SqlParameter("@dcmlTotalFee", aSurgery.TotalFee));
+                parameters.Add(new SqlParameter("@strDescription", aSurgery.Description));
+            }
+
+            return parameters.ToArray();
+        }
+        #endregion
+
+
+        #region Surgery Info Get
         internal List<Surgery> GetAllSurgeryList()
         {
             Surgery aSurgery = null;
@@ -95,7 +112,6 @@ namespace HospitalBilling.DAL
             reader.Close();
             return surgeryList;
         }
-
         internal Surgery GetSurgeryById(int id)
         {
             Surgery aSurgery = null;
@@ -122,7 +138,6 @@ namespace HospitalBilling.DAL
             reader.Close();
             return aSurgery;
         }
-
         internal List<Surgery> GetSurgeryByTypeId(int surgeryTypeId)
         {
             Surgery aSurgery = null;
@@ -153,7 +168,6 @@ namespace HospitalBilling.DAL
             reader.Read();
             return surgeryList;
         }
-
         internal Surgery GetSurgeryByName(string name)
         {
             Surgery aSurgery = null;
@@ -180,5 +194,6 @@ namespace HospitalBilling.DAL
             reader.Close();
             return aSurgery;
         }
+        #endregion
     }
 }

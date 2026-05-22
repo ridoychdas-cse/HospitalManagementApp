@@ -1,8 +1,10 @@
 ﻿using HospitalBilling.BLL;
+using HospitalBilling.Enum;
 using HospitalBilling.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace HospitalBilling.DAL
 {
@@ -10,30 +12,43 @@ namespace HospitalBilling.DAL
     {
         private readonly string _connectionString = DataManager.ConnectionString();
 
+        #region Diagnosistype Setup Save, Update, Delete
         internal int Save(DiagnosisType aDiagnosisType)
         {
-            string query = "INSERT INTO DiagnosisTypes VALUES('" + aDiagnosisType.Name + "', '" +
-                           aDiagnosisType.ShortName + "', '" + aDiagnosisType.Details + "')";
-            int rowAffected = DataManager.ExecuteNonQuery(query, _connectionString);
-            return rowAffected;
-        }
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_SaveDiagnosisTypeInfo]", LoadParametersInputData(aDiagnosisType, ActionType.Save), _connectionString);
 
+        }
         internal int Update(DiagnosisType aDiagnosisType)
         {
-            string query = "UPDATE DiagnosisTypes SET Name='" + aDiagnosisType.Name + "', ShortName='" +
-                           aDiagnosisType.ShortName + "', Details='" + aDiagnosisType.Details + "' WHERE Id='" +
-                           aDiagnosisType.Id + "'";
-            int rowAffected = DataManager.ExecuteNonQuery(query, _connectionString);
-            return rowAffected;
-        }
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_UpdateDiagnosisTypeInfo]", LoadParametersInputData(aDiagnosisType, ActionType.Update), _connectionString);
 
-        internal int Delete(int id)
+        }
+        internal int Delete(DiagnosisType aDiagnosisType)
         {
-            string query = "DELETE FROM DiagnosisTypes WHERE Id='" + id + "'";
-            int rowAffected = DataManager.ExecuteNonQuery(query, _connectionString);
-            return rowAffected;
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_DeleteDiagnosisTypeInfoById]", LoadParametersInputData(aDiagnosisType, ActionType.Delete), _connectionString);
         }
 
+        internal SqlParameter[] LoadParametersInputData(DiagnosisType aDiagnosisType, ActionType actionType)
+        {
+            List<SqlParameter> parameters = new List<SqlParameter>();
+
+            if (actionType == ActionType.Update || actionType == ActionType.Delete)
+            {
+                parameters.Add(new SqlParameter("@intId", aDiagnosisType.Id));
+            }
+
+            if (actionType == ActionType.Save || actionType == ActionType.Update)
+            {
+                parameters.Add(new SqlParameter("@strName", aDiagnosisType.Name));
+                parameters.Add(new SqlParameter("@strShortName", aDiagnosisType.ShortName));
+                parameters.Add(new SqlParameter("@strDetails", aDiagnosisType.Details));
+            }
+
+            return parameters.ToArray();
+        }
+        #endregion
+
+        #region DiagnosisType info get
         internal List<DiagnosisType> GetAllDiagnosisTypes()
         {
             DiagnosisType aDiagnosisType = null;
@@ -57,7 +72,6 @@ namespace HospitalBilling.DAL
             reader.Close();
             return diagnosisList;
         }
-
         // search
         internal List<DiagnosisType> GetDiagnosisTypeByNameOrShortName(string searchInput)
         {
@@ -82,7 +96,6 @@ namespace HospitalBilling.DAL
             reader.Close();
             return diagnosisList;
         }
-
         internal DiagnosisType GetDiagnosisTypeById(int id)
         {
             DiagnosisType aDiagnosisType = null;
@@ -102,7 +115,6 @@ namespace HospitalBilling.DAL
             reader.Close();
             return aDiagnosisType;
         }
-
         internal DiagnosisType GetDiagnosisTypeByName(string name)
         {
             DiagnosisType aDiagnosisType = null;
@@ -122,9 +134,6 @@ namespace HospitalBilling.DAL
             reader.Close();
             return aDiagnosisType;
         }
-
-
-
         public DataTable GetAllUOM()
         {
             var connnection = DataManager.ConnectionString();
@@ -132,5 +141,6 @@ namespace HospitalBilling.DAL
             DataTable data=DataManager.ExecuteQuery(connnection,query,"UOM");
             return data;
         }
+        #endregion
     }
 }

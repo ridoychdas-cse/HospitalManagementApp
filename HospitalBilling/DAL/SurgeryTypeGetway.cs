@@ -1,7 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using HospitalBilling.BLL;
+﻿using HospitalBilling.BLL;
+using HospitalBilling.Enum;
 using HospitalBilling.Models;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace HospitalBilling.DAL
 {
@@ -10,30 +12,43 @@ namespace HospitalBilling.DAL
 
         private readonly string _connectionString = DataManager.ConnectionString();
 
+        #region SurgeryType Info Save,Update,Delete
         internal int Save(SurgeryType aSurgeryType)
         {
-            string query = "INSERT INTO SurgeryTypes VALUES ('" + aSurgeryType.Name + "', '" + aSurgeryType.ShortName + "', '" +
-                           aSurgeryType.Description + "')";
-            int rowAffected = DataManager.ExecuteNonQuery(query, _connectionString);
-            return rowAffected;
-        }
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_SaveSurgeryTypeInfo]", LoadParametersInputData(aSurgeryType, ActionType.Save), _connectionString);
 
+        }
         internal int Update(SurgeryType aSurgeryType)
         {
-            string query = "UPDATE SurgeryTypes SET Name='" + aSurgeryType.Name + "', ShortName='" +
-                           aSurgeryType.ShortName + "', Description='" + aSurgeryType.Description + "' WHERE Id='" +
-                           aSurgeryType.Id + "'";
-            int rowAffected = DataManager.ExecuteNonQuery(query, _connectionString);
-            return rowAffected;
-        }
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_UpdateSurgeryTypeInfo]", LoadParametersInputData(aSurgeryType, ActionType.Update), _connectionString);
 
-        internal int Delete(int id)
+        }
+        internal int Delete(SurgeryType aSurgeryType)
         {
-            string query = "DELETE FROM SurgeryTypes WHERE Id='" + id + "'";
-            int rowAffected = DataManager.ExecuteNonQuery(query, _connectionString);
-            return rowAffected;
-        }
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_DeleteSurgeryTypeInfoById]", LoadParametersInputData(aSurgeryType, ActionType.Delete), _connectionString);
 
+        }
+        internal SqlParameter[] LoadParametersInputData(SurgeryType aSurgeryType, ActionType actionType)
+        {
+            List<SqlParameter> parameters = new List<SqlParameter>();
+
+            if (actionType == ActionType.Update || actionType == ActionType.Delete)
+            {
+                parameters.Add(new SqlParameter("@intId", aSurgeryType.Id));
+            }
+
+            if (actionType == ActionType.Save || actionType == ActionType.Update)
+            {
+                parameters.Add(new SqlParameter("@strName", aSurgeryType.Name));
+                parameters.Add(new SqlParameter("@strShortName", aSurgeryType.ShortName));
+                parameters.Add(new SqlParameter("@strDescription", aSurgeryType.Description));
+            }
+
+            return parameters.ToArray();
+        }
+        #endregion
+
+        #region SurgeryType Info Get
         internal List<SurgeryType> GetAllSurgeryTypesList()
         {
             SurgeryType aSurgeryType=null;
@@ -57,7 +72,6 @@ namespace HospitalBilling.DAL
             reader.Close();
             return surgeryList;
         }
-
         internal SurgeryType GetSurgeryTypesById(int id)
         {
             SurgeryType aSurgeryType = null;
@@ -76,7 +90,6 @@ namespace HospitalBilling.DAL
             reader.Close();
             return aSurgeryType;
         }
-
         internal SurgeryType GetSurgeryTypesByName(string name)
         {
             SurgeryType aSurgeryType = null;
@@ -95,5 +108,6 @@ namespace HospitalBilling.DAL
             reader.Close();
             return aSurgeryType;
         }
+        #endregion
     }
 }

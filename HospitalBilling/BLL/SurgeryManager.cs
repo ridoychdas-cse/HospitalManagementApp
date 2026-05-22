@@ -8,6 +8,7 @@ namespace HospitalBilling.BLL
     {
         private readonly SurgeryGetway _surgeryGetway=new SurgeryGetway();
 
+        #region Surgery Info Check
         internal bool IsNameExist(string name)
         {
             bool isNameExist = false;
@@ -18,22 +19,22 @@ namespace HospitalBilling.BLL
             }
             return isNameExist;
         }
-
+        #endregion
+        #region Surgery Info Save,Update,Delete
         internal int Save(Surgery aSurgery)
         {
             return _surgeryGetway.Save(aSurgery);
         }
-
         internal int Update(Surgery aSurgery)
         {
             return _surgeryGetway.Update(aSurgery);
         }
-
-        internal int Delete(int id)
+        internal int Delete(Surgery aSurgery)
         {
-            return _surgeryGetway.Delete(id);
+            return _surgeryGetway.Delete(aSurgery);
         }
-
+        #endregion
+        #region Surgery Info Get
         internal List<Surgery> GetAllSurgeryList()
         {
             return _surgeryGetway.GetAllSurgeryList();
@@ -42,20 +43,18 @@ namespace HospitalBilling.BLL
         {
             return _surgeryGetway.GetAllSurgeryList(surgeryTypeId);
         }
-
         internal Surgery GetSurgeryById(int id)
         {
             return _surgeryGetway.GetSurgeryById(id);
         }
-
         internal Surgery GetSurgeryByName(string name)
         {
             return _surgeryGetway.GetSurgeryByName(name);
         }
-
         internal List<Surgery> GetSurgeryByTypeId(int surgeryTypeId)
         {
             return _surgeryGetway.GetSurgeryByTypeId(surgeryTypeId);
         }
+        #endregion
     }
 }

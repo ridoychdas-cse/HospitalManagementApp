@@ -1,36 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using HospitalBilling.BLL;
+﻿using HospitalBilling.BLL;
+using HospitalBilling.Enum;
 using HospitalBilling.Models;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace HospitalBilling.DAL
 {
     public class PackageTypeGetway
     {
-        private readonly string _connestionString = DataManager.ConnectionString();
+        private readonly string _connectionString = DataManager.ConnectionString();
 
+        #region PackageType Info Save, Update, Delete
         public int Save(PackageType aPackageType)
         {
-            string query = "Insert into PackageTypes Values('" + aPackageType.Name + "', '" + aPackageType.ShortName +
-                           "', '" + aPackageType.Description + "')";
-            int rowAffected = DataManager.ExecuteNonQuery(query, _connestionString);
-            return rowAffected;
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_SavePackageTypeInfo]", LoadParametersInputData(aPackageType, ActionType.Save), _connectionString);
         }
-
-        public int Update(int id, PackageType aPackageType)
+        public int Update( PackageType aPackageType)
         {
-            string query = "Update PackageTypes SET Name='" + aPackageType.Name + "', ShortName='" +
-                           aPackageType.ShortName + "', Description='" + aPackageType.Description + "' WHERE Id='" + id +
-                           "'";
-            return DataManager.ExecuteNonQuery(query, _connestionString);
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_UpdatePackageTypeInfo]", LoadParametersInputData(aPackageType, ActionType.Update), _connectionString);
         }
-
-        public int Delete(int id)
+        public int Delete(PackageType aPackageType)
         {
-            string query = "Delete From PackageTypes Where Id='" + id + "'";
-            return DataManager.ExecuteNonQuery(query, _connestionString);
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_DeletePackageTypeInfoById]", LoadParametersInputData(aPackageType, ActionType.Delete), _connectionString);
         }
 
+        internal SqlParameter[] LoadParametersInputData(PackageType aPackageType, ActionType actionType)
+        {
+            List<SqlParameter> parameters = new List<SqlParameter>();
+
+            if (actionType == ActionType.Update || actionType == ActionType.Delete)
+            {
+                parameters.Add(new SqlParameter("@intId", aPackageType.Id));
+            }
+
+            if (actionType == ActionType.Save || actionType == ActionType.Update)
+            {
+                parameters.Add(new SqlParameter("@strName", aPackageType.Name));
+                parameters.Add(new SqlParameter("@strShortName", aPackageType.ShortName));
+                parameters.Add(new SqlParameter("@strDescription", aPackageType.Description));
+            }
+
+            return parameters.ToArray();
+        }
+        #endregion
+
+        #region PackageType Info Get
         public List<PackageType> GetAllPackageTypes()
         {
             PackageType aPackageType = null;
@@ -38,7 +53,7 @@ namespace HospitalBilling.DAL
 
             string query = "Select * FROM PackageTypes";
 
-            var reader = DataManager.SqlDataReader(query, _connestionString);
+            var reader = DataManager.SqlDataReader(query, _connectionString);
             if (reader.HasRows)
             {
                 while (reader.Read())
@@ -55,7 +70,6 @@ namespace HospitalBilling.DAL
             reader.Close();
             return packageTypeList;
         }
-
         public PackageType GetAllPackageTypesById(int id)
         {
             PackageType aPackageType = null;
@@ -63,7 +77,7 @@ namespace HospitalBilling.DAL
 
             string query = "Select * FROM PackageTypes Where Id='" + id + "'";
 
-            var reader = DataManager.SqlDataReader(query, _connestionString);
+            var reader = DataManager.SqlDataReader(query, _connectionString);
             if (reader.HasRows)
             {
                 reader.Read();
@@ -79,7 +93,6 @@ namespace HospitalBilling.DAL
             reader.Close();
             return aPackageType;
         }
-
         public PackageType GetAllPackageTypesByName(string name)
         {
             PackageType aPackageType = null;
@@ -87,7 +100,7 @@ namespace HospitalBilling.DAL
 
             string query = "Select * FROM PackageTypes Where Name='"+name+"'";
 
-            var reader = DataManager.SqlDataReader(query, _connestionString);
+            var reader = DataManager.SqlDataReader(query, _connectionString);
             if (reader.HasRows)
             {
                 reader.Read();
@@ -103,5 +116,6 @@ namespace HospitalBilling.DAL
             reader.Close();
             return aPackageType;
         }
+        #endregion
     }
 }
