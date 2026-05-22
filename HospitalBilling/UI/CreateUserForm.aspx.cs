@@ -171,7 +171,7 @@ namespace HospitalBilling.UI
             //}
             //else
             //{
-            int rowAffected = _userManager.Update(aUser.Id, aUser);
+            int rowAffected = _userManager.Update(aUser);
             if (rowAffected > 0)
             {
                 EditPopupRefress();
@@ -217,9 +217,10 @@ namespace HospitalBilling.UI
             LinkButton dl = (LinkButton)sender;
             GridViewRow gvr = (GridViewRow)dl.NamingContainer;
             Label lblID = userGridView.Rows[gvr.DataItemIndex].FindControl("idLabel") as Label;
-            int id = Convert.ToInt32(lblID.Text);
+            User aUser=new User();
+            aUser.Id = Convert.ToInt32(lblID.Text);
 
-            _userManager.Delete(id);
+            _userManager.Delete(aUser);
             DeleteRefress();
 
             //idHiddenField.Value = id.ToString();
@@ -230,9 +231,9 @@ namespace HospitalBilling.UI
         // popup button
         protected void delete1LinkButton_Click(object sender, EventArgs e)
         {
-            int id = Convert.ToInt32(idHiddenField.Value);
-
-            _userManager.Delete(id);
+            User aUser = new User();
+            aUser.Id = Convert.ToInt32(idHiddenField.Value);
+            _userManager.Delete(aUser);
             DeleteRefress();
             deleteModalPopupExtender.Hide();
         }

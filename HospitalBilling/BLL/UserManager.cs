@@ -9,6 +9,7 @@ namespace HospitalBilling.BLL
         private readonly UserGetway _userGetway = new UserGetway();
 
 
+        #region User Info Check
         internal bool IsNameExist(string userName)
         {
             bool isNameExist = false;
@@ -19,22 +20,23 @@ namespace HospitalBilling.BLL
             }
             return isNameExist;
         }
+        #endregion
 
+        #region User Info Save,Update,Delete
         internal int Save(User aUser)
         {
             return _userGetway.Save(aUser);
         }
-
-        internal int Update(int id, User aUser)
+        internal int Update(User aUser)
         {
-            return _userGetway.Update(id, aUser);
+            return _userGetway.Update(aUser);
         }
-
-        public int Delete(int id)
+        public int Delete(User aUser)
         {
-            return _userGetway.Delete(id);
+            return _userGetway.Delete(aUser);
         }
-
+        #endregion
+        #region User Info Get
         // get all user
         public List<User> GetAllUserList()
         {
@@ -69,5 +71,6 @@ namespace HospitalBilling.BLL
         {
             return _userGetway.GetUserByUserName(userName);
         }
+#endregion
     }
 }

@@ -1,7 +1,9 @@
 ﻿using HospitalBilling.BLL;
+using HospitalBilling.Enum;
 using HospitalBilling.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace HospitalBilling.DAL
 {
@@ -9,29 +11,47 @@ namespace HospitalBilling.DAL
     {
         private readonly string _connectionString = DataManager.ConnectionString();
 
+        #region User Info Save,Update,Delete
         internal int Save(User aUser)
         {
-            string query = "INSERT INTO Users VALUES('" + aUser.FirstName + "', '" + aUser.LastName + "', '" +
-                           aUser.PhoneNo + "', '" + aUser.UserName.ToLower() + "', '" + aUser.Password + "', '" + aUser.UserRoleId +
-                           "', '" + true + "')";
-            return DataManager.ExecuteNonQuery(query, _connectionString);
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_SaveUserInfo]", LoadParametersInputData(aUser, ActionType.Save), _connectionString);
+
         }
-
-
-        internal int Update(int id, User aUser)
+        internal int Update(User aUser)
         {
-            string query = "UPDATE Users SET FirstName='" + aUser.FirstName + "', LastName='" + aUser.LastName +
-                           "', PhoneNo='" + aUser.PhoneNo + "', UserName='" + aUser.UserName.ToLower() + "', Password='" +
-                           aUser.Password + "', UserRoleId='" + aUser.UserRoleId + "' WHERE Id='" + id + "'";
-            return DataManager.ExecuteNonQuery(query, _connectionString);
-        }
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_UpdateUserInfo]", LoadParametersInputData(aUser, ActionType.Update), _connectionString);
 
-        public int Delete(int id)
+        }
+        public int Delete(User aUser)
         {
-            string query = "UPDATE Users SET Status='" + false + "' WHERE Id='" + id + "'";
-            return DataManager.ExecuteNonQuery(query, _connectionString);
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_DeleteUserInfo]", LoadParametersInputData(aUser, ActionType.Delete), _connectionString);
+
         }
 
+        internal SqlParameter[] LoadParametersInputData(User aUser, ActionType actionType)
+        {
+            List<SqlParameter> parameters = new List<SqlParameter>();
+
+            if (actionType == ActionType.Update || actionType == ActionType.Delete)
+            {
+                parameters.Add(new SqlParameter("@intId", aUser.Id));
+            }
+
+            if (actionType == ActionType.Save || actionType == ActionType.Update)
+            {
+                parameters.Add(new SqlParameter("@strFirstName", aUser.FirstName));
+                parameters.Add(new SqlParameter("@strLastName", aUser.LastName));
+                parameters.Add(new SqlParameter("@strPhoneNo", aUser.PhoneNo));
+                parameters.Add(new SqlParameter("@strUserName", aUser.UserName));
+                parameters.Add(new SqlParameter("@strPassword", aUser.Password));
+                parameters.Add(new SqlParameter("@intUserRoleId", aUser.UserRoleId));
+            }
+
+            return parameters.ToArray();
+        }
+        #endregion
+
+        #region User Info Get
         // get all user
         public List<User> GetAllUserList()
         {
@@ -63,8 +83,6 @@ namespace HospitalBilling.DAL
             reader.Close();
             return userList;
         }
-
-
         // get all user
         public List<User> GetUserListBySearchInput(string searchInput)
         {
@@ -96,7 +114,6 @@ namespace HospitalBilling.DAL
             reader.Close();
             return userList;
         }
-
         // get user by id
         public User GetUserById(int id)
         {
@@ -154,8 +171,6 @@ namespace HospitalBilling.DAL
             reader.Close();
             return aUser;
         }
-
-
         // for login
         public User GetUserByUserNameAndPassword(string userName, string password)
         {
@@ -184,7 +199,6 @@ namespace HospitalBilling.DAL
             reader.Close();
             return aUser;
         }
-
         // unique check for UserName
         public User GetUserByUserName(string userName)
         {
@@ -213,5 +227,6 @@ namespace HospitalBilling.DAL
             reader.Close();
             return aUser;
         }
+        #endregion
     }
 }
