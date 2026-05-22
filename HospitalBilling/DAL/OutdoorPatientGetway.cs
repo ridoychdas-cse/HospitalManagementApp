@@ -1,7 +1,10 @@
 ﻿using HospitalBilling.BLL;
+using HospitalBilling.Enum;
 using HospitalBilling.Models;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace HospitalBilling.DAL
 {
@@ -9,36 +12,61 @@ namespace HospitalBilling.DAL
     {
         private readonly string _connectionString = DataManager.ConnectionString();
 
+
+        #region Outdoor Patient Info Save,Update,Delete
         internal int Save(OutdoorPatient aOutdoorPatient)
         {
-            string query = "INSERT INTO OutdoorPatients VALUES ('" + aOutdoorPatient.PatientId + "','" + aOutdoorPatient.Name + "', '" +
-                           aOutdoorPatient.PhoneNo + "', '" + aOutdoorPatient.Gender + "', '" + aOutdoorPatient.Age +
-                           "', '" + aOutdoorPatient.EntryDate + "', '" + aOutdoorPatient.DepartmentId + "', '" +
-                           aOutdoorPatient.DoctorId + "', '" + aOutdoorPatient.ReferenceById + "','"+aOutdoorPatient.DivisionId+"','"+aOutdoorPatient.DistrictId+"','"+aOutdoorPatient.ThanaId+"')";
-            int rowAffected = DataManager.ExecuteNonQuery(query, _connectionString);
-            return rowAffected;
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_SaveOutdoorPatientInfo]", LoadParametersInputData(aOutdoorPatient, ActionType.Save), _connectionString);
         }
 
         internal int Update(OutdoorPatient aOutdoorPatient)
         {
-            string query = "UPDATE OutdoorPatients SET PatientId='" + aOutdoorPatient.PatientId + "', Name='" + aOutdoorPatient.Name + "', PhoneNo='" +
-                           aOutdoorPatient.PhoneNo + "', Gender='" + aOutdoorPatient.Gender + "', Age='" +
-                           aOutdoorPatient.Age + "', EntryDate='" + aOutdoorPatient.EntryDate + "', DepartmentId='" +
-                           aOutdoorPatient.DepartmentId + "', DoctorId='" + aOutdoorPatient.DoctorId +
-                           "', ReferenceById='" + aOutdoorPatient.ReferenceById + "',DivisionId='" + aOutdoorPatient.DivisionId + "',DistrictId='" + aOutdoorPatient.DistrictId + "',ThanaId='" + aOutdoorPatient.ThanaId + "' WHERE Id='" + aOutdoorPatient.Id + "'";
-                         
-            int rowAffected = DataManager.ExecuteNonQuery(query, _connectionString);
-            return rowAffected;
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_UpdateOutdoorPatientInfo]", LoadParametersInputData(aOutdoorPatient, ActionType.Update), _connectionString);
         }
 
-        internal int Delete(int id)
+        internal int Delete(OutdoorPatient aOutdoorPatient)
         {
-            string query = "DELETE FROM OutdoorPatients WHERE Id='" + id + "'";
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_DeleteOutdoorPatientInfo]", LoadParametersInputData(aOutdoorPatient, ActionType.Delete), _connectionString);
+
+        }
+        internal int UpdateDiagnosisBillResult(int Id, string ResultValue)
+        {
+            string query = "update DiagnosisBillDtl set ResultValue='" + ResultValue + "' where Id='" + Id + "'";
+
             int rowAffected = DataManager.ExecuteNonQuery(query, _connectionString);
             return rowAffected;
         }
+        internal SqlParameter[] LoadParametersInputData(OutdoorPatient aOutdoorPatient, ActionType actionType)
+        {
+            List<SqlParameter> parameters = new List<SqlParameter>();
 
+            if (actionType == ActionType.Update || actionType == ActionType.Delete)
+            {
+                parameters.Add(new SqlParameter("@intId", aOutdoorPatient.Id));
+            }
 
+            if (actionType == ActionType.Save || actionType == ActionType.Update)
+            {
+                parameters.Add(new SqlParameter("@strPatientId", aOutdoorPatient.PatientId));
+                parameters.Add(new SqlParameter("@strName", aOutdoorPatient.Name));
+                parameters.Add(new SqlParameter("@strPhoneNo", aOutdoorPatient.PhoneNo));
+                parameters.Add(new SqlParameter("@strGender", aOutdoorPatient.Gender));
+                parameters.Add(new SqlParameter("@strAge", aOutdoorPatient.Age));
+                parameters.Add(new SqlParameter("@dtmEntryDate", aOutdoorPatient.EntryDate));
+                parameters.Add(new SqlParameter("@intDepartmentId", aOutdoorPatient.DepartmentId));
+                parameters.Add(new SqlParameter("@intDoctorId", aOutdoorPatient.DoctorId));
+                parameters.Add(new SqlParameter("@intReferenceById", aOutdoorPatient.ReferenceById));
+                parameters.Add(new SqlParameter("@intDivisionId", aOutdoorPatient.DistrictId));
+                parameters.Add(new SqlParameter("@intDistrictId", aOutdoorPatient.DistrictId));
+                parameters.Add(new SqlParameter("@intThanaId", aOutdoorPatient.ThanaId));
+            }
+
+            return parameters.ToArray();
+        }
+
+        #endregion
+
+        #region Outdoor Patient Info Get
         internal OutdoorPatient GetPatientByPatientId(string patientId)
         {
             OutdoorPatient aOutdoorPatient = null;
@@ -62,7 +90,6 @@ namespace HospitalBilling.DAL
 
             return aOutdoorPatient;
         }
-
         // searching
         internal OutdoorPatient GetPatientByPatientIdNamePhoneNo(string serchInput)
         {
@@ -90,8 +117,6 @@ namespace HospitalBilling.DAL
 
             return aOutdoorPatient;
         }
-
-
         // searching
         public OutdoorPatient GetPatientByBillNo(string serchInput)
         {
@@ -120,8 +145,6 @@ namespace HospitalBilling.DAL
 
             return aOutdoorPatient;
         }
-
-
         internal string GetAutoPatientId()
         {
             string patientId = "";
@@ -142,7 +165,6 @@ namespace HospitalBilling.DAL
             }
             return patientId;
         }
-
         internal OutdoorPatient GetPatientById(int id)
         {
             OutdoorPatient aOutdoorPatient = null;
@@ -197,9 +219,6 @@ namespace HospitalBilling.DAL
 
             return aOutdoorPatient;
         }
-
-        
-
         // Get Auto Patient Id
         internal string AutoId()
         {
@@ -207,21 +226,14 @@ namespace HospitalBilling.DAL
             string autoId = "OP-" + DataManager.AutoId(tableName, _connectionString);
             return autoId;
         }
-
         internal DataTable GetDiagnosis(string mstId)
         {
             var connectionString = DataManager.ConnectionString();
             string query = "SELECT T2.Id,T2.DiagnosisTypeId,T3.Name AS DiagnosisTypeName,T2.DiagnosisId,T4.Name as DiagnosisName,ISNULL(t2.ResultValue,'') as ResultValue,ISNULL(t4.NormalValue,'0') as NormalValue,ISNULL(t2.ResultValue,'0')+' '+ISNULL(T5.Name,'') as rptResultValue,ISNULL(t4.NormalValue,'0')+' '+ISNULL(T5.Name,'') as rptNormalValue  FROM [DiagnosisBillDtl]  AS T2 INNER JOIN DiagnosisTypes AS T3 ON T2.DiagnosisTypeId=T3.Id INNER JOIN Diagnosis AS T4 ON T2.DiagnosisId=T4.Id Left Join UOM As T5 on t4.UomId=t5.Id where T2.DiagnosisBillMstId='" + mstId + "'";
             return DataManager.ExecuteQuery(connectionString, query, "[DiagnosisBillDtl]");
         }
-
-        internal int UpdateDiagnosisBillResult(int Id,string ResultValue)
-        {
-            string query = "update DiagnosisBillDtl set ResultValue='"+ResultValue+"' where Id='"+Id+"'";
-           
-            int rowAffected = DataManager.ExecuteNonQuery(query, _connectionString);
-            return rowAffected;
-        }
+        #endregion
+        
 
     }
 }
