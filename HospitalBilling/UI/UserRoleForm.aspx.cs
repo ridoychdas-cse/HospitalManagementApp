@@ -81,10 +81,11 @@ namespace HospitalBilling.UI
                 int id = Convert.ToInt32(idHiddenField.Value);
                 var role = new UserRole()
                 {
+                    Id = id,
                     Name = nameTextBox.Text,
                     Description = descriptionTextBox.Text
                 };
-                int rowAffected = _userRoleManager.Update(role, id);
+                int rowAffected = _userRoleManager.Update(role);
                 if (rowAffected > 0)
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "ale", "alert('Successfully Update User Role in Database!!');", true);
@@ -102,13 +103,14 @@ namespace HospitalBilling.UI
         {
             if (idHiddenField.Value == "")
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "ale", "alert('Please Select Role Name First Then Update!!');", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "ale", "alert('Please Select Role Name First Then Delete!!');", true);
 
             }
             else
             {
-                int id = Convert.ToInt32(idHiddenField.Value);
-                int rowAffected = _userRoleManager.Delete(id);
+                UserRole role = new UserRole();
+                role.Id = Convert.ToInt32(idHiddenField.Value);
+                int rowAffected = _userRoleManager.Delete(role);
                 if (rowAffected > 0)
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "ale", "alert('Successfully Delete User Role in Database!!');", true);

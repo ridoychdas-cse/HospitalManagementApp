@@ -13,24 +13,25 @@ namespace HospitalBilling.BLL
             return _userRoleGetway.GetAllUserList();
         }
 
+        #region User Role Save Update Delete
         internal int Save(UserRole role)
         {
             return _userRoleGetway.Save(role);
         }
-
-        internal int Update(UserRole role, int id)
+        internal int Update(UserRole role)
         {
-            return _userRoleGetway.Update(role, id);
+            return _userRoleGetway.Update(role);
         }
-
-        internal int Delete(int id)
+        internal int Delete(UserRole role)
         {
-            return _userRoleGetway.Delete(id);
+            return _userRoleGetway.Delete(role);
         }
-
+        #endregion
+        #region User Role Info Get
         internal UserRole GetUserRoleById(int id)
         {
             return _userRoleGetway.GetUserRoleById(id);
         }
+        #endregion
     }
 }
