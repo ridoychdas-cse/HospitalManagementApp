@@ -33,7 +33,8 @@ namespace HospitalBilling.UI
             {
                 var otherBill = new OtherBillType()
                 {
-                    Name = nameTextBox.Text
+                    Name = nameTextBox.Text,
+                    Status=true
                 };
 
                 int rowAffected = _otherBillManager.Save(otherBill);
@@ -74,10 +75,10 @@ namespace HospitalBilling.UI
                 var otherBill = new OtherBillType()
                 {
                     Id = id,
-                    Name = nameTextBox.Text
-                };
+                    Name = nameTextBox.Text,
+                    Status=true                };
 
-                int rowAffected = _otherBillManager.Update(id, otherBill);
+                int rowAffected = _otherBillManager.Update(otherBill);
                 if (rowAffected > 0)
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "ale", "alert('Successfully Update Other Bill!!');", true);
@@ -104,8 +105,9 @@ namespace HospitalBilling.UI
             }
             else
             {
-                int id = Convert.ToInt32(idHiddenField.Value);
-                int rowAffected = _otherBillManager.Delete(id);
+                OtherBillType otherBill = new OtherBillType();
+                otherBill.Id = Convert.ToInt32(idHiddenField.Value);
+                int rowAffected = _otherBillManager.Delete(otherBill);
                 if (rowAffected > 0)
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "ale", "alert('Successfully Delete Other Bill!!');", true);

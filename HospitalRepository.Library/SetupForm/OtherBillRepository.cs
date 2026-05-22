@@ -1,31 +1,53 @@
 ﻿using HospitalModels.Library.Billings;
 using HospitalRepository.Library.DataManagers;
+using HospitalRepository.Library.Enum;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace HospitalRepository.Library.SetupForm
 {
     public class OtherBillRepository
     {
         private readonly string _connectionString = DataManagers.DataManager.ConnectionString();
+
+        #region Other Bill Info Insert Update Delete
         public int Save(OtherBillType otherBill)
         {
-            string query = "INSERT INTO OtherBillType VALUES('" + otherBill.Name + "', '" + true + "')";
-            return DataManagers.DataManager.ExecuteNonQuery(query, _connectionString);
-        }
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_SaveOtherBillType]", LoadParametersInputData(otherBill, ActionType.Save), _connectionString);
 
-        public int Update(int id, OtherBillType otherBill)
+        }
+        public int Update(OtherBillType otherBill)
         {
-            string query = "UPDATE OtherBillType SET Name='" + otherBill.Name + "' WHERE Id='" + id + "'";
-            return DataManager.ExecuteNonQuery(query, _connectionString);
-        }
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_UpdateOtherBillType]", LoadParametersInputData(otherBill, ActionType.Update), _connectionString);
 
-        public int Delete(int id)
+        }
+        public int Delete(OtherBillType otherBill)
         {
-            string query = "UPDATE OtherBillType SET Status='" + false + "' WHERE Id='" + id + "'";
-            return DataManager.ExecuteNonQuery(query, _connectionString);
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_DeleteOtherBillType]", LoadParametersInputData(otherBill, ActionType.Delete), _connectionString);
+
+        }
+        internal SqlParameter[] LoadParametersInputData(OtherBillType otherBill, ActionType actionType)
+        {
+            List<SqlParameter> parameters = new List<SqlParameter>();
+
+            if (actionType == ActionType.Update || actionType == ActionType.Delete)
+            {
+                parameters.Add(new SqlParameter("@intId", otherBill.Id));
+            }
+
+            if (actionType == ActionType.Save || actionType == ActionType.Update)
+            {
+                parameters.Add(new SqlParameter("@strName", otherBill.Name));
+                parameters.Add(new SqlParameter("@blnStatus", otherBill.Status));
+            }
+
+            return parameters.ToArray();
         }
 
+        #endregion
+
+        #region Other Bill Info Get
         public IEnumerable<OtherBillType> GetAllOtherBills()
         {
             var billList = new List<OtherBillType>();
@@ -49,7 +71,6 @@ namespace HospitalRepository.Library.SetupForm
             reader.Close();
             return billList;
         }
-
         public OtherBillType GetOtherBillById(int id)
         {
             OtherBillType otherBill = null;
@@ -72,5 +93,6 @@ namespace HospitalRepository.Library.SetupForm
             reader.Close();
             return otherBill;
         }
+        #endregion
     }
 }

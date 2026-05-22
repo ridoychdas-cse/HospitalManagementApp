@@ -14,21 +14,21 @@ namespace HospitalManager.Library.SetupForm
             _otherBillRepository = new OtherBillRepository();
         }
 
+        #region Other Bill Info Insert Update Delete
         public int Save(OtherBillType otherBill)
         {
             return _otherBillRepository.Save(otherBill);
         }
-
-        public int Update(int id, OtherBillType otherBill)
+        public int Update(OtherBillType otherBill)
         {
-            return _otherBillRepository.Update(id, otherBill);
+            return _otherBillRepository.Update(otherBill);
         }
-
-        public int Delete(int id)
+        public int Delete(OtherBillType otherBill)
         {
-            return _otherBillRepository.Delete(id);
+            return _otherBillRepository.Delete(otherBill);
         }
-
+        #endregion
+        #region Other Bill Info Get
         public IEnumerable<OtherBillType> GetAllOtherBills()
         {
             return _otherBillRepository.GetAllOtherBills();
@@ -38,5 +38,6 @@ namespace HospitalManager.Library.SetupForm
         {
             return _otherBillRepository.GetOtherBillById(id);
         }
+        #endregion
     }
 }

@@ -39,7 +39,25 @@ namespace HospitalRepository.Library.DataManagers
             int rowAffected = command.ExecuteNonQuery();
             return rowAffected;
         }
+        public static int ExecuteNonQuerySP(string spName, SqlParameter[] parameters, string connectionString)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(spName, connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
 
+                    if (parameters != null)
+                    {
+                        command.Parameters.AddRange(parameters);
+                    }
+
+                    connection.Open();
+
+                    return command.ExecuteNonQuery();
+                }
+            }
+        }
         /// <summary>
         /// SqlDataReader for Read Data From Database
         /// </summary>
