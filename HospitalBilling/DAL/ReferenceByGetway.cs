@@ -1,7 +1,9 @@
 ﻿using HospitalBilling.BLL;
+using HospitalBilling.Enum;
 using HospitalBilling.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace HospitalBilling.DAL
 {
@@ -9,28 +11,41 @@ namespace HospitalBilling.DAL
     {
         private readonly string _connectionString = DataManager.ConnectionString();
 
+        #region ReferenceBy Info Insert Update Delete
         internal int Save(ReferenceBy aReferenceBy)
         {
-            string query = "INSERT INTO ReferenceBy VALUES ('" + aReferenceBy.Name + "', '" + true + "')";
-            int rowAffected = DataManager.ExecuteNonQuery(query, _connectionString);
-            return rowAffected;
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_SaveReferenceBy]", LoadParametersInputData(aReferenceBy, ActionType.Save), _connectionString);
         }
-
         internal int Update(ReferenceBy aReferenceBy)
         {
-            string query = "UPDATE ReferenceBy SET Name='" + aReferenceBy.Name + "' WHERE Id='" +
-                           aReferenceBy.Id + "'";
-            int rowAffected = DataManager.ExecuteNonQuery(query, _connectionString);
-            return rowAffected;
-        }
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_UpdateReferenceBy]", LoadParametersInputData(aReferenceBy, ActionType.Update), _connectionString);
 
-        internal int Delete(int id)
+        }
+        internal int Delete(ReferenceBy aReferenceBy)
         {
-            string query = "UPDATE ReferenceBy SET Status='" + false + "' WHERE Id='" + id + "'";
-            int rowAffected = DataManager.ExecuteNonQuery(query, _connectionString);
-            return rowAffected;
+            return DataManager.ExecuteNonQuerySP("[dbo].[Sp_DeleteReferenceBy]", LoadParametersInputData(aReferenceBy, ActionType.Delete), _connectionString);
+
         }
 
+        internal SqlParameter[] LoadParametersInputData(ReferenceBy aReferenceBy, ActionType actionType)
+        {
+            List<SqlParameter> parameters = new List<SqlParameter>();
+
+            if (actionType == ActionType.Update || actionType == ActionType.Delete)
+            {
+                parameters.Add(new SqlParameter("@intId", aReferenceBy.Id));
+            }
+
+            if (actionType == ActionType.Save || actionType == ActionType.Update)
+            {
+                parameters.Add(new SqlParameter("@strName", aReferenceBy.Name));
+            }
+
+            return parameters.ToArray();
+        }
+        #endregion
+
+        #region ReferenceBy Info Get
         internal List<ReferenceBy> GetAllReferenceByList()
         {
             ReferenceBy aReferenceBy = null;
@@ -54,7 +69,6 @@ namespace HospitalBilling.DAL
             reader.Close();
             return referenceByList;
         }
-
         internal ReferenceBy GetReferenceById(int id)
         {
             ReferenceBy aReferenceBy = null;
@@ -71,7 +85,6 @@ namespace HospitalBilling.DAL
             reader.Close();
             return aReferenceBy;
         }
-
         internal ReferenceBy GetReferanceByName(string name)
         {
             ReferenceBy aReferenceBy = null;
@@ -88,7 +101,6 @@ namespace HospitalBilling.DAL
             reader.Close();
             return aReferenceBy;
         }
-
         internal int SaveAndGetId(ReferenceBy referenceBy)
         {
             string query = "INSERT INTO ReferenceBy VALUES ('" + referenceBy.Name + "', '" + true + "')";
@@ -98,5 +110,6 @@ namespace HospitalBilling.DAL
             int id = DataManager.Transaction(_connectionString, query, query2);
             return id;
         }
+        #endregion
     }
 }

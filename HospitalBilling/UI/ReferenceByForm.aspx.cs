@@ -90,9 +90,10 @@ namespace HospitalBilling.UI
             }
             else
             {
-                int id = Convert.ToInt32(idHiddenField.Value);
+                ReferenceBy aSurgeryType=new ReferenceBy();
+                aSurgeryType.Id = Convert.ToInt32(idHiddenField.Value);
 
-                int rowAffected = _referenceByManager.Delete(id);
+                int rowAffected = _referenceByManager.Delete(aSurgeryType);
                 if (rowAffected > 0)
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "ale", "alert('Successfully Delete Reference in Database!!');", true);

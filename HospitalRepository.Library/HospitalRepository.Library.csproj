@@ -49,6 +49,7 @@
     <Compile Include="Billings\OpBilling\OpMoneyReceiveRepository.cs" />
     <Compile Include="Billings\OpBilling\OpPaymentHisotyRepository.cs" />
     <Compile Include="DataManagers\DataManager.cs" />
+    <Compile Include="Enum\ActionType.cs" />
     <Compile Include="IpAssignDiagnosis\IpAssignDiagnosisRepository.cs" />
     <Compile Include="MoneyReceiveHistoryRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
